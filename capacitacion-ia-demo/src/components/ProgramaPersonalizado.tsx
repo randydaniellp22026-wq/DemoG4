@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Terminal, Brain, Clock, Sparkles, ArrowLeft, Activity, CheckCircle2, Zap, AlertTriangle } from 'lucide-react'
 
 interface Modulo {
   titulo: string;
@@ -24,13 +25,38 @@ export function ProgramaPersonalizado({ perfil, onActivateCoaching, onBack }: Pr
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [program, setProgram] = useState<ProgramData | null>(null)
+  
+  // Real-time terminal log simulator
+  const [terminalLogs, setTerminalLogs] = useState<string[]>([])
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+
+  const stepsToPrint = [
+    `>> [INIT] Estableciendo conexión con el motor cognitivo Llama-3.3...`,
+    `>> [SYS] Analizando perfil del colaborador: ${perfil?.nombre || 'Kevin Araya'}...`,
+    `>> [SYS] Evaluando brechas: [${perfil?.gaps || 'Liderazgo, Comunicación'}]...`,
+    `>> [ALIGN] Mapeando objetivo corporativo en "${perfil?.empresa || 'Rutas Andinas'}"...`,
+    `>> [SYNTH] Sintetizando módulos de aprendizaje adaptativo y KPI...`,
+    `>> [OK] Módulos estructurados correctamente. Desplegando interfaz curada...`
+  ]
+
+  useEffect(() => {
+    if (!loading) return
+    if (currentStepIndex < stepsToPrint.length) {
+      const timer = setTimeout(() => {
+        setTerminalLogs(prev => [...prev, stepsToPrint[currentStepIndex]])
+        setCurrentStepIndex(idx => idx + 1)
+      }, 350)
+      return () => clearTimeout(timer)
+    }
+  }, [currentStepIndex, loading])
 
   const fetchProgram = async (useFallback = false) => {
     setLoading(true)
     setError(null)
+    setTerminalLogs([])
+    setCurrentStepIndex(0)
 
     if (useFallback) {
-      // Mock program aligned with Kevin's transition
       const mockProgram: ProgramData = {
         programa_nombre: `Plan de Desarrollo: Supervisor de Turno - ${perfil?.nombre || 'Kevin Araya'}`,
         modulos: [
@@ -59,7 +85,7 @@ export function ProgramaPersonalizado({ perfil, onActivateCoaching, onBack }: Pr
       setTimeout(() => {
         setProgram(mockProgram)
         setLoading(false)
-      }, 1200)
+      }, 2200) // Give time to read logs
       return
     }
 
@@ -76,16 +102,20 @@ export function ProgramaPersonalizado({ perfil, onActivateCoaching, onBack }: Pr
       }
 
       const data = await response.json()
-      setProgram(data)
+      // Delay slightly so user can enjoy the cyberpunk loader logs
+      setTimeout(() => {
+        setProgram(data)
+        setLoading(false)
+      }, 1000)
     } catch (err: any) {
       console.error(err)
       setError(err.message || 'Error al conectar con el servidor backend.')
     } finally {
-      setLoading(false)
+      // Don't close loader immediately on error to show logs
+      if (useFallback) setLoading(false)
     }
-  }
+  };
 
-  // Load program automatically upon mounting
   useEffect(() => {
     fetchProgram(false)
   }, [])
@@ -102,148 +132,238 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
   }
 
   return (
-    <div className="space-y-8">
-      {/* 1. Loading State */}
+    <div className="space-y-6">
+      {/* 1. Loading State (Futuristic Matrix Scanner) */}
       {loading && (
-        <div className="flex flex-col items-center justify-center py-16 space-y-4">
-          <div className="flex space-x-2">
-            <div className="w-3 h-3 bg-gold rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-            <div className="w-3 h-3 bg-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-            <div className="w-3 h-3 bg-gold rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+        <div className="cyber-card p-6 md:p-8 space-y-6">
+          <div className="flex items-center justify-between border-b border-border/40 pb-4">
+            <div className="flex items-center space-x-3">
+              <Brain className="w-5 h-5 text-gold animate-pulse" />
+              <h3 className="font-mono text-sm uppercase tracking-wider text-text font-bold">
+                COG.SYNTHESIZER_ACTIVE
+              </h3>
+            </div>
+            <span className="w-2.5 h-2.5 rounded-full bg-gold animate-ping" />
           </div>
-          <p className="text-sm font-semibold text-text font-display">
-            Generando programa a medida para {perfil?.nombre || 'Kevin Araya'}...
+
+          {/* Scanning animation visualizer */}
+          <div className="h-28 bg-[#04060d] border border-border/60 rounded-lg relative overflow-hidden flex items-center justify-center">
+            {/* Horizontal scan line overlay */}
+            <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent opacity-60 animate-[cyber-scan_2.5s_infinite_linear]" style={{
+              top: '50%'
+            }} />
+            <style>{`
+              @keyframes scanline-flow {
+                0% { top: 0%; }
+                100% { top: 100%; }
+              }
+            `}</style>
+            
+            {/* Tech waveform grid */}
+            <div className="flex space-x-1.5 z-10">
+              <div className="wave-bar h-8" />
+              <div className="wave-bar h-16" />
+              <div className="wave-bar h-24" />
+              <div className="wave-bar h-12" />
+              <div className="wave-bar h-20" />
+            </div>
+          </div>
+
+          {/* Terminal Console Logs */}
+          <div className="bg-black/90 p-4 rounded-lg border border-border/80 font-mono text-[11px] leading-relaxed space-y-2 h-44 overflow-y-auto scrollbar-thin text-[#00ff99]">
+            {terminalLogs.map((log, idx) => (
+              <div key={idx} className="animate-fadeIn opacity-90">
+                {log}
+              </div>
+            ))}
+            <div className="w-2 h-4 bg-[#00ff99] animate-pulse inline-block" />
+          </div>
+
+          <p className="text-center font-display text-xs text-textMuted uppercase tracking-widest">
+            Sintetizando plan de desarrollo para {perfil?.nombre || 'Kevin Araya'}...
           </p>
         </div>
       )}
 
-      {/* 2. Error State with fallback to mock */}
+      {/* 2. Glitch Error State */}
       {error && !loading && (
-        <div className="p-6 bg-goldDim/10 border border-goldDim/30 rounded-xl space-y-4 text-center">
-          <div className="space-y-2">
-            <h3 className="font-bold text-lg text-gold font-display">No se pudo generar el programa</h3>
-            <p className="text-sm text-textMuted max-w-lg mx-auto">
-              Detalle del error: <span className="font-mono text-xs">{error}</span>
-            </p>
+        <div className="cyber-card p-6 border-teal/40 bg-tealDim/5 rounded-xl space-y-6 relative overflow-hidden">
+          {/* Tech glitch corner red accent */}
+          <div className="absolute top-0 right-0 w-16 h-16 bg-teal/10 border-b border-l border-teal/30 rotate-45 translate-x-8 -translate-y-8" />
+          
+          <div className="flex items-center space-x-3 border-b border-border/40 pb-4">
+            <AlertTriangle className="w-6 h-6 text-teal" />
+            <h3 className="font-bold text-base text-teal font-mono uppercase tracking-wider">
+              [WARNING] DISRUPCIÓN EN RED COGNITIVA
+            </h3>
           </div>
-          <div className="flex justify-center space-x-3">
+          
+          <div className="space-y-3">
+            <p className="text-xs text-textMuted font-mono">
+              El motor de síntesis de IA no pudo retornar la estructura curricular requerida.
+            </p>
+            <div className="p-3 bg-black/50 border border-border/80 rounded font-mono text-[10px] text-teal/90">
+              API_DIAGNOSTIC_ERR: {error}
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-end gap-3 pt-3 border-t border-border/30">
             <button
               type="button"
               onClick={onBack}
-              className="px-4 py-2 border border-border text-textMuted rounded-lg text-sm hover:border-gold hover:text-gold transition-colors"
+              className="px-4 py-2 border border-border text-textMuted rounded-lg text-xs font-mono tracking-wide hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
-              ← Modificar Perfil
+              <ArrowLeft className="w-3.5 h-3.5" />
+              MODIFICAR DATOS
             </button>
             <button
               type="button"
               onClick={() => fetchProgram(true)}
-              className="px-6 py-2 bg-gold text-bg font-semibold rounded-lg text-sm hover:bg-gold/90 transition-colors"
+              className="px-5 py-2.5 bg-gold text-bg font-bold font-mono tracking-wide rounded-lg text-xs hover:bg-gold/90 transition-all duration-300 shadow-[0_2px_10px_rgba(0,240,255,0.25)] flex items-center justify-center gap-2 cursor-pointer"
             >
-              Cargar Programa Simulado (Demo)
+              <Zap className="w-3.5 h-3.5 text-bg fill-current" />
+              FORZAR SÍNTESIS SIMULADA
             </button>
           </div>
         </div>
       )}
 
-      {/* 3. Program Content */}
+      {/* 3. Program Content Dashboard */}
       {!loading && !error && program && (
         <div className="space-y-8 animate-fadeIn">
           
           {/* Header */}
-          <div className="border-b border-border pb-4">
-            <span className="text-xs uppercase font-mono tracking-widest text-teal">Plan Curado por IA</span>
-            <h2 className="text-2xl font-bold font-display text-gold mt-1">
-              Programa de Capacitación Personalizado
+          <div className="border-b border-border/50 pb-5 relative">
+            <span className="text-[10px] uppercase font-mono tracking-widest text-teal block font-semibold">
+              CURATED_PLAN_METRICS.LOG
+            </span>
+            <h2 className="text-2xl font-bold font-display text-text mt-1 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-gold" />
+              <span>Programa de Capacitación AI</span>
             </h2>
+            <div className="absolute right-0 bottom-1 flex items-center gap-1.5 font-mono text-[9px] text-gold bg-gold/10 px-2 py-0.5 rounded border border-gold/20">
+              <Sparkles className="w-2.5 h-2.5" />
+              <span>DISEÑO COMPONENTES IA</span>
+            </div>
           </div>
 
-          {/* Comparative Block: Two Columns */}
+          {/* Comparison Panels (Legacy vs AI) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Left: Generic Course (catalogo masivo) */}
-            <div className="bg-surface2/40 border border-border/30 rounded-xl p-5 space-y-2 opacity-60">
-              <span className="text-[10px] uppercase font-mono tracking-wider text-textMuted block">
-                Curso Genérico (Catálogo Masivo)
+            {/* Left: Legacy Catalog */}
+            <div className="bg-surface/30 border border-border/40 rounded-xl p-5 space-y-3 relative opacity-60 hover:opacity-85 transition-opacity">
+              <span className="text-[8px] uppercase font-mono tracking-wider text-textMuted/60 block">
+                [LEGACY_CATALOG.DB]
               </span>
-              <p className="text-sm text-textMuted leading-relaxed">
+              <h4 className="text-sm font-bold text-textMuted uppercase font-mono">Curso Estándar de la Industria</h4>
+              <p className="text-xs text-textMuted leading-relaxed font-sans">
                 {program.comparativa_generica}
               </p>
+              {/* Crossed sign overlay */}
+              <div className="absolute top-4 right-4 text-[9px] font-mono text-textMuted/40 border border-textMuted/30 px-1.5 py-0.5 rounded uppercase">
+                Estático
+              </div>
             </div>
 
-            {/* Right: Custom Program */}
-            <div className="bg-surface2 border border-gold/40 rounded-xl p-5 space-y-2 shadow-[0_0_12px_rgba(232,163,61,0.05)]">
-              <span className="text-[10px] uppercase font-mono tracking-wider text-gold block font-semibold">
-                Programa Generado para {perfil?.nombre || 'Kevin Araya'}
-              </span>
-              <h4 className="text-base font-bold font-display text-text">
+            {/* Right: AI Synthesis Custom Program */}
+            <div className="bg-surface2/50 border border-gold/40 rounded-xl p-5 space-y-3 shadow-[0_0_15px_rgba(0,240,255,0.06)] hover:border-gold/60 transition-all duration-300 relative">
+              {/* Small glowing cyan corner light */}
+              <span className="absolute top-0 right-0 w-2 h-2 bg-gold rounded-full animate-pulse shadow-[0_0_8px_#00f0ff]" />
+              
+              <div className="flex items-center justify-between">
+                <span className="text-[8px] uppercase font-mono tracking-wider text-gold block font-bold">
+                  [COG.SYNTHESIZED_v2]
+                </span>
+                <span className="text-[9px] font-mono text-gold bg-gold/15 px-2 py-0.5 rounded uppercase font-semibold">
+                  Personalizado
+                </span>
+              </div>
+              <h4 className="text-sm font-bold font-display text-text leading-tight">
                 {program.programa_nombre}
               </h4>
               <p className="text-xs text-textMuted leading-relaxed">
-                Diseñado exclusivamente para la transición de <strong className="text-text">{perfil?.puestoActual}</strong> a <strong className="text-text">{perfil?.puestoMeta}</strong>.
+                Estructurado específicamente para el tránsito de <strong className="text-text font-semibold">{perfil?.puestoActual}</strong> a <strong className="text-text font-semibold">{perfil?.puestoMeta}</strong>.
               </p>
             </div>
           </div>
 
-          {/* Modules: Vertical Timeline */}
-          <div className="space-y-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-textMuted font-mono">
-              Estructura Cronológica del Plan
+          {/* Modules Timeline */}
+          <div className="space-y-5">
+            <h3 className="text-[10px] font-bold uppercase tracking-widest text-textMuted font-mono border-b border-border/20 pb-2">
+              CRONOGRAMA DE EJECUCIÓN DEL PLAN
             </h3>
 
-            {/* Timeline Wrapper */}
-            <div className="relative pl-6 border-l-2 border-gold/40 space-y-8 ml-3">
+            {/* Timeline Loop */}
+            <div className="relative pl-7 border-l border-gold/30 space-y-6 ml-3">
               {program.modulos && program.modulos.map((modulo, idx) => (
-                <div key={idx} className="relative space-y-2">
+                <div 
+                  key={idx} 
+                  className="relative group bg-surface2/40 hover:bg-surface2/70 p-4 border border-border/30 hover:border-gold/30 rounded-xl transition-all duration-300 space-y-2.5"
+                >
                   
-                  {/* Timeline Dot (Gold) */}
-                  <div className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-gold border-2 border-bg shadow-[0_0_6px_rgba(232,163,61,0.4)]" />
+                  {/* Timeline Dot (Electric Node) */}
+                  <div className="absolute -left-[35px] top-4 w-3.5 h-3.5 rounded-md bg-[#05070f] border-2 border-gold flex items-center justify-center shadow-[0_0_6px_rgba(0,240,255,0.4)] group-hover:scale-110 transition-transform duration-300">
+                    <span className="w-1.5 h-1.5 rounded-sm bg-gold" />
+                  </div>
 
                   {/* Header Title and Duration */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                    <h4 className="text-base font-bold font-display text-text">
-                      {modulo.titulo}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-border/10 pb-1.5">
+                    <h4 className="text-sm font-bold font-display text-text group-hover:text-gold transition-colors">
+                      {idx + 1}. {modulo.titulo}
                     </h4>
-                    <span className="text-teal font-mono text-xs font-semibold whitespace-nowrap">
-                      ⚡ {modulo.duracion}
+                    <span className="text-teal font-mono text-[10px] font-bold whitespace-nowrap bg-teal/10 border border-teal/20 px-2 py-0.5 rounded flex items-center gap-1.5">
+                      <Clock className="w-3 h-3 text-teal" />
+                      {modulo.duracion}
                     </span>
                   </div>
 
-                  {/* Objective & Rationale */}
-                  <div className="space-y-1 text-sm leading-relaxed">
+                  {/* Objective & Custom Explanation */}
+                  <div className="space-y-2 text-xs leading-relaxed">
                     <p className="text-textMuted">{modulo.objetivo}</p>
-                    <p className="text-xs italic text-teal/90 font-medium">
-                      Por qué es personalizado: {modulo.por_que_personalizado}
-                    </p>
+                    
+                    {/* Custom explanation logic with neural background */}
+                    <div className="p-2.5 bg-[#04060d] border-l-2 border-teal rounded-r font-mono text-[11px] text-teal/95 flex items-start gap-2">
+                      <Zap className="w-3.5 h-3.5 text-teal shrink-0 mt-0.5" />
+                      <div>
+                        <strong className="text-textMuted uppercase font-semibold text-[9px] block">Racional Adaptativo:</strong>
+                        {modulo.por_que_personalizado}
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Final Banner with Diferencia Clave (Gold Dim/10 background) */}
-          <div className="bg-goldDim/10 border border-goldDim/20 rounded-xl p-6 space-y-2">
-            <span className="text-[10px] uppercase font-mono tracking-widest text-gold block font-semibold">
-              Diferencia Clave y Valor para el Negocio
-            </span>
-            <p className="text-sm text-text font-medium leading-relaxed">
-              {program.diferencia_clave}
-            </p>
+          {/* Difference highlights */}
+          <div className="bg-goldDim/10 border border-goldDim/35 rounded-xl p-5 relative overflow-hidden flex items-start gap-4">
+            <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <span className="text-[9px] uppercase font-mono tracking-widest text-gold block font-semibold">
+                DIFERENCIAL CLAVE EN EL NEGOCIO
+              </span>
+              <p className="text-xs text-text font-medium leading-relaxed font-mono">
+                {program.diferencia_clave}
+              </p>
+            </div>
           </div>
 
-          {/* Navigation Actions */}
-          <div className="flex justify-between items-center pt-4 border-t border-border/50">
+          {/* Actions */}
+          <div className="flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4 pt-5 border-t border-border/50">
             <button
               type="button"
               onClick={onBack}
-              className="px-4 py-2 border border-border text-textMuted rounded-lg text-sm hover:border-gold hover:text-gold transition-colors"
+              className="px-5 py-2.5 border border-border text-textMuted rounded-lg text-xs font-mono tracking-wide hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
-              ← Modificar Perfil
+              <ArrowLeft className="w-3.5 h-3.5" />
+              MODIFICAR PERFIL
             </button>
             <button
               type="button"
               onClick={handleActivateCoaching}
-              className="px-6 py-2.5 bg-gold text-bg font-semibold rounded-lg text-sm hover:bg-gold/90 transition-colors shadow-[0_4px_12px_rgba(232,163,61,0.2)]"
+              className="px-6 py-3.5 bg-teal text-bg font-bold font-mono tracking-wider rounded-lg text-xs hover:bg-teal/90 transition-all duration-300 shadow-[0_4px_14px_rgba(255,0,127,0.25)] hover:shadow-[0_4px_20px_rgba(255,0,127,0.4)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
             >
-              Activar Agente de Coaching →
+              <Terminal className="w-4 h-4 text-bg" />
+              ACTIVAR MENTOR COGNITIVO (COACH IA)
             </button>
           </div>
 
