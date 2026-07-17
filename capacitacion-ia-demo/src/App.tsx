@@ -1,9 +1,12 @@
 import { useState } from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Stepper } from './components/Stepper'
 import { Card } from './components/Card'
 import { FormularioPerfil } from './components/FormularioPerfil'
 import { ProgramaPersonalizado } from './components/ProgramaPersonalizado'
 import { AgenteCoaching } from './components/AgenteCoaching'
+import { NavBar } from './components/NavBar'
+import { Programas } from './pages/Programas'
 import { Cpu, Terminal, ShieldCheck, Activity } from 'lucide-react'
 
 interface Message {
@@ -11,7 +14,7 @@ interface Message {
   content: string;
 }
 
-function App() {
+function CrearCapacitacion() {
   const [step, setStep] = useState(0)
   const [perfil, setPerfil] = useState<any>(null)
   const [programa, setPrograma] = useState<any>(null)
@@ -33,11 +36,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen text-white font-body p-4 md:p-10 flex flex-col items-center justify-start space-y-8 max-w-5xl mx-auto relative z-10">
-      
-      {/* Cyber scanning bar effect */}
-      <div className="scan-bar" />
-
+    <div className="w-full space-y-8">
       {/* Futuristic HUD Header */}
       <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center justify-between border-b border-border/50 pb-5 gap-4">
         <div className="space-y-1.5">
@@ -48,7 +47,7 @@ function App() {
               <span className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_8px_#00f0ff]" />
             </div>
             <h1 className="text-xl md:text-2xl font-bold font-display text-white tracking-tight uppercase glow-text-cyan flex items-center gap-2">
-              <span>CAPACITACIÓN IA</span>
+              <span>SÍNTESIS DE CAPACITACIÓN IA</span>
             </h1>
           </div>
           <p className="text-[10px] text-textMuted font-mono uppercase tracking-widest leading-none">
@@ -109,28 +108,48 @@ function App() {
           />
         )}
       </Card>
-
-      {/* Tech Stack Footer */}
-      <footer className="w-full border-t border-border/50 pt-5 flex flex-col sm:flex-row justify-between items-center text-[10px] text-textMuted gap-3 font-mono">
-        <div className="flex items-center gap-1">
-          <span>DESARROLLADO_CON:</span>
-          <span className="text-gold font-bold">VITE</span>
-          <span>+</span>
-          <span className="text-teal font-bold">REACT_19</span>
-          <span>+</span>
-          <span className="text-gold font-bold">TAILWIND_v4</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1">
-            <Terminal className="w-3.5 h-3.5 text-teal" />
-            BACKEND: PORT_3001
-          </span>
-          <span>//</span>
-          <span>MODEL: COGNITIVE_UPLINK</span>
-        </div>
-      </footer>
-
     </div>
+  )
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      {/* Shared NavBar at the very top */}
+      <NavBar />
+      
+      <div className="min-h-screen text-white font-body p-4 md:p-10 flex flex-col items-center justify-start space-y-8 max-w-5xl mx-auto relative z-10">
+        
+        {/* Cyber scanning bar effect */}
+        <div className="scan-bar" />
+
+        <Routes>
+          <Route path="/" element={<Programas />} />
+          <Route path="/crear-ia" element={<CrearCapacitacion />} />
+        </Routes>
+
+        {/* Tech Stack Footer */}
+        <footer className="w-full border-t border-border/50 pt-5 flex flex-col sm:flex-row justify-between items-center text-[10px] text-textMuted gap-3 font-mono">
+          <div className="flex items-center gap-1">
+            <span>DESARROLLADO_CON:</span>
+            <span className="text-gold font-bold">VITE</span>
+            <span>+</span>
+            <span className="text-teal font-bold">REACT_19</span>
+            <span>+</span>
+            <span className="text-gold font-bold">TAILWIND_v4</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="flex items-center gap-1">
+              <Terminal className="w-3.5 h-3.5 text-teal" />
+              BACKEND: PORT_3001
+            </span>
+            <span>//</span>
+            <span>MODEL: COGNITIVE_UPLINK</span>
+          </div>
+        </footer>
+
+      </div>
+    </BrowserRouter>
   )
 }
 
