@@ -247,7 +247,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
           <div className="flex items-center justify-between border-b border-border/40 pb-4">
             <div className="flex items-center space-x-3">
               <Brain className="w-5 h-5 text-gold animate-pulse" />
-              <h3 className="font-mono text-sm uppercase tracking-wider text-text font-bold">
+              <h3 className="font-mono text-sm uppercase tracking-wider text-white font-bold">
                 COG.SYNTHESIZER_ACTIVE
               </h3>
             </div>
@@ -255,7 +255,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
           </div>
 
           {/* Scanning animation visualizer */}
-          <div className="h-28 bg-[#04060d] border border-border/60 rounded-lg relative overflow-hidden flex items-center justify-center">
+          <div className="h-28 bg-[#0a1128] border border-border/60 rounded-lg relative overflow-hidden flex items-center justify-center">
             {/* Horizontal scan line overlay */}
             <div className="absolute inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent opacity-60 animate-[cyber-scan_2.5s_infinite_linear]" style={{
               top: '50%'
@@ -319,7 +319,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
             <button
               type="button"
               onClick={onBack}
-              className="px-4 py-2 border border-border text-textMuted rounded-lg text-xs font-mono tracking-wide hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="px-4 py-2 border border-steel text-steel rounded-lg text-xs font-mono tracking-wide hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               MODIFICAR DATOS
@@ -327,9 +327,9 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
             <button
               type="button"
               onClick={() => fetchProgram(true)}
-              className="px-5 py-2.5 bg-gold text-bg font-bold font-mono tracking-wide rounded-lg text-xs hover:bg-gold/90 transition-all duration-300 shadow-[0_2px_10px_rgba(0,240,255,0.25)] flex items-center justify-center gap-2 cursor-pointer"
+              className="px-5 py-2.5 bg-gold text-navyDeep font-bold font-mono tracking-wide rounded-lg text-xs hover:bg-gold/90 transition-all duration-300 shadow-[0_2px_10px_rgba(232,163,61,0.25)] flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Zap className="w-3.5 h-3.5 text-bg fill-current" />
+              <Zap className="w-3.5 h-3.5 text-navyDeep fill-current" />
               FORZAR SÍNTESIS SIMULADA
             </button>
           </div>
@@ -345,7 +345,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
             <span className="text-[10px] uppercase font-mono tracking-widest text-teal block font-semibold">
               CURATED_PLAN_METRICS.LOG
             </span>
-            <h2 className="text-2xl font-bold font-display text-text mt-1 flex items-center gap-2">
+            <h2 className="text-2xl font-bold font-display text-white mt-1 flex items-center gap-2">
               <Activity className="w-5 h-5 text-gold" />
               <span>Programa de Capacitación AI</span>
             </h2>
@@ -358,7 +358,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
           {/* Comparison Panels (Legacy vs AI) */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Left: Legacy Catalog */}
-            <div className="bg-surface/30 border border-border/40 rounded-xl p-5 space-y-3 relative opacity-60 hover:opacity-85 transition-opacity">
+            <div className="bg-navy/30 border border-border/40 rounded-xl p-5 space-y-3 relative opacity-60 hover:opacity-85 transition-opacity">
               <span className="text-[8px] uppercase font-mono tracking-wider text-textMuted/60 block">
                 [LEGACY_CATALOG.DB]
               </span>
@@ -373,7 +373,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
             </div>
 
             {/* Right: AI Synthesis Custom Program */}
-            <div className="bg-surface2/50 border border-gold/40 rounded-xl p-5 space-y-3 shadow-[0_0_15px_rgba(0,240,255,0.06)] hover:border-gold/60 transition-all duration-300 relative">
+            <div className="bg-navyLight/50 border border-gold/40 rounded-xl p-5 space-y-3 shadow-[0_0_15px_rgba(232,163,61,0.06)] hover:border-gold/60 transition-all duration-300 relative">
               {/* Small glowing cyan corner light */}
               <span className="absolute top-0 right-0 w-2 h-2 bg-gold rounded-full animate-pulse shadow-[0_0_8px_#00f0ff]" />
               
@@ -385,11 +385,11 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
                   Personalizado
                 </span>
               </div>
-              <h4 className="text-sm font-bold font-display text-text leading-tight">
+              <h4 className="text-sm font-bold font-display text-white leading-tight">
                 {program.programa_nombre}
               </h4>
               <p className="text-xs text-textMuted leading-relaxed">
-                Estructurado específicamente para el tránsito de <strong className="text-text font-semibold">{perfil?.puestoActual}</strong> a <strong className="text-text font-semibold">{perfil?.puestoMeta}</strong>.
+                Estructurado específicamente para el tránsito de <strong className="text-white font-semibold">{perfil?.puestoActual}</strong> a <strong className="text-white font-semibold">{perfil?.puestoMeta}</strong>.
               </p>
             </div>
           </div>
@@ -405,18 +405,18 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
               {program.modulos && program.modulos.map((modulo, idx) => (
                 <div 
                   key={idx} 
-                  className="relative group bg-surface2/40 hover:bg-surface2/60 p-4 border border-border/30 hover:border-gold/30 rounded-xl transition-all duration-300 space-y-3"
+                  className="relative group bg-navyLight/40 hover:bg-navyLight/60 p-4 border border-border/30 hover:border-gold/30 rounded-xl transition-all duration-300 space-y-3"
                 >
                   
                   {/* Timeline Dot (Electric Node) */}
-                  <div className="absolute -left-[35px] top-4 w-3.5 h-3.5 rounded-md bg-[#05070f] border-2 border-gold flex items-center justify-center shadow-[0_0_6px_rgba(0,240,255,0.4)] group-hover:scale-110 transition-transform duration-300">
+                  <div className="absolute -left-[35px] top-4 w-3.5 h-3.5 rounded-md bg-[#0A1128] border-2 border-gold flex items-center justify-center shadow-[0_0_6px_rgba(232,163,61,0.4)] group-hover:scale-110 transition-transform duration-300">
                     <span className="w-1.5 h-1.5 rounded-sm bg-gold" />
                   </div>
 
                   {/* Header Title and Duration */}
                   <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 border-b border-border/10 pb-2">
                     <div className="space-y-1.5">
-                      <h4 className="text-sm font-bold font-display text-text group-hover:text-gold transition-colors leading-tight">
+                      <h4 className="text-sm font-bold font-display text-white group-hover:text-gold transition-colors leading-tight">
                         {idx + 1}. {modulo.titulo}
                       </h4>
                       {/* Reinforced Skills Badges */}
@@ -439,7 +439,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
                     <p className="text-textMuted">{modulo.objetivo}</p>
                     
                     {/* Custom explanation logic with neural background */}
-                    <div className="p-2.5 bg-[#04060d] border-l-2 border-teal rounded-r font-mono text-[11px] text-teal/95 flex items-start gap-2">
+                    <div className="p-2.5 bg-[#0a1128] border-l-2 border-teal rounded-r font-mono text-[11px] text-teal/95 flex items-start gap-2">
                       <Zap className="w-3.5 h-3.5 text-teal shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-textMuted uppercase font-semibold text-[9px] block">Racional Adaptativo:</strong>
@@ -462,7 +462,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
 
                   {/* Expanded Weekly Content Panel */}
                   {expandedModules[idx] && (
-                    <div className="mt-3 bg-[#04060d]/70 border border-border/50 rounded-lg p-3.5 space-y-3.5 animate-fadeIn">
+                    <div className="mt-3 bg-[#0a1128]/70 border border-border/50 rounded-lg p-3.5 space-y-3.5 animate-fadeIn">
                       <span className="text-[8px] font-mono text-teal/60 uppercase block tracking-wider">
                         // MATRIX_CURRICULUM_LOG :: DEPLOYING_WEEKS
                       </span>
@@ -474,7 +474,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
                               <span className="text-[9px] font-mono font-bold text-teal bg-teal/10 px-1.5 py-0.5 rounded border border-teal/10">
                                 Semana {semana.semana_numero}
                               </span>
-                              <span className="text-[11px] font-display font-bold text-text">
+                              <span className="text-[11px] font-display font-bold text-white">
                                 {semana.titulo}
                               </span>
                             </div>
@@ -487,7 +487,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
                               <div className="pl-2.5 pt-0.5 space-y-1">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
                                   {semana.temas.map((tema, tIdx) => (
-                                    <div key={tIdx} className="text-[10px] font-mono text-text/80 flex items-center gap-1.5">
+                                    <div key={tIdx} className="text-[10px] font-mono text-white/80 flex items-center gap-1.5">
                                       <span className="w-1 h-1 bg-gold rounded-full shrink-0" />
                                       <span>{tema}</span>
                                     </div>
@@ -506,13 +506,13 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
           </div>
 
           {/* Difference highlights */}
-          <div className="bg-goldDim/10 border border-goldDim/35 rounded-xl p-5 relative overflow-hidden flex items-start gap-4">
+          <div className="bg-gold/10 border border-gold/30 rounded-xl p-5 relative overflow-hidden flex items-start gap-4">
             <CheckCircle2 className="w-5 h-5 text-gold shrink-0 mt-0.5" />
             <div className="space-y-1">
               <span className="text-[9px] uppercase font-mono tracking-widest text-gold block font-semibold">
                 DIFERENCIAL CLAVE EN EL NEGOCIO
               </span>
-              <p className="text-xs text-text font-medium leading-relaxed font-mono">
+              <p className="text-xs text-white font-medium leading-relaxed font-mono">
                 {program.diferencia_clave}
               </p>
             </div>
@@ -523,7 +523,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
             <button
               type="button"
               onClick={onBack}
-              className="px-5 py-2.5 border border-border text-textMuted rounded-lg text-xs font-mono tracking-wide hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              className="px-5 py-2.5 border border-steel text-steel rounded-lg text-xs font-mono tracking-wide hover:border-gold hover:text-gold transition-colors flex items-center justify-center gap-2 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               MODIFICAR PERFIL
@@ -531,9 +531,9 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
             <button
               type="button"
               onClick={handleActivateCoaching}
-              className="px-6 py-3.5 bg-teal text-bg font-bold font-mono tracking-wider rounded-lg text-xs hover:bg-teal/90 transition-all duration-300 shadow-[0_4px_14px_rgba(255,0,127,0.25)] hover:shadow-[0_4px_20px_rgba(255,0,127,0.4)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 bg-teal text-navyDeep font-bold font-mono tracking-wider rounded-lg text-xs hover:bg-teal/90 transition-all duration-300 shadow-[0_4px_14px_rgba(255,0,127,0.25)] hover:shadow-[0_4px_20px_rgba(255,0,127,0.4)] active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Terminal className="w-4 h-4 text-bg" />
+              <Terminal className="w-4 h-4 text-navyDeep" />
               ACTIVAR MENTOR COGNITIVO (COACH IA)
             </button>
           </div>

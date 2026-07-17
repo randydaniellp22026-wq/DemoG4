@@ -33,7 +33,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen text-text font-body p-4 md:p-10 flex flex-col items-center justify-start space-y-8 max-w-5xl mx-auto relative z-10">
+    <div className="min-h-screen text-white font-body p-4 md:p-10 flex flex-col items-center justify-start space-y-8 max-w-5xl mx-auto relative z-10">
       
       {/* Cyber scanning bar effect */}
       <div className="scan-bar" />
@@ -47,7 +47,7 @@ function App() {
               <span className="absolute w-full h-full rounded-full bg-gold opacity-50 animate-ping" />
               <span className="w-2.5 h-2.5 rounded-full bg-gold shadow-[0_0_8px_#00f0ff]" />
             </div>
-            <h1 className="text-xl md:text-2xl font-bold font-display text-text tracking-tight uppercase glow-text-cyan flex items-center gap-2">
+            <h1 className="text-xl md:text-2xl font-bold font-display text-white tracking-tight uppercase glow-text-cyan flex items-center gap-2">
               <span>CAPACITACIÓN IA</span>
             </h1>
           </div>
@@ -57,7 +57,7 @@ function App() {
         </div>
         
         {/* Right side diagnostics readings */}
-        <div className="flex items-center space-x-4 self-end sm:self-auto font-mono text-[9px] text-textMuted border border-border/40 bg-surface/40 p-2 rounded-lg backdrop-blur-md">
+        <div className="flex items-center space-x-4 self-end sm:self-auto font-mono text-[9px] text-textMuted border border-border/40 bg-navy/40 p-2 rounded-lg backdrop-blur-md">
           <div className="flex items-center gap-1.5">
             <Cpu className="w-3.5 h-3.5 text-gold animate-pulse" />
             <span>SYS_LINK: ACTIVE</span>
@@ -76,7 +76,7 @@ function App() {
       </div>
 
       {/* Stepper Navigation Grid Container */}
-      <div className="w-full bg-surface2/30 border border-border/40 rounded-xl px-5 py-4 backdrop-blur-md relative overflow-hidden shadow-inner">
+      <div className="w-full bg-navyLight/30 border border-border/40 rounded-xl px-5 py-4 backdrop-blur-md relative overflow-hidden shadow-inner">
         {/* Tech decorative top light highlight */}
         <div className="absolute top-0 inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
         <Stepper steps={steps} activeStep={step} />

@@ -52,7 +52,7 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
         <span className="text-[10px] uppercase font-mono tracking-widest text-gold block font-semibold">
           SYS.INITIALIZE_PROFILE_MATRIX
         </span>
-        <h2 className="text-2xl font-bold font-display text-text flex items-center gap-2.5">
+        <h2 className="text-2xl font-bold font-display text-white flex items-center gap-2.5">
           <Layers className="w-6 h-6 text-gold" />
           <span>Perfil del Colaborador</span>
         </h2>
@@ -83,7 +83,7 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
               placeholder="Ej. Randy Daniel"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="w-full bg-surface2 border border-border rounded-lg px-4 py-2.5 text-sm text-text focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
+              className="w-full bg-navyLight border border-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
             />
             {/* Input highlight indicator */}
             <span className="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-gold/20" />
@@ -106,7 +106,7 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
               placeholder="Ej. InnovaTech Solutions"
               value={empresa}
               onChange={(e) => setEmpresa(e.target.value)}
-              className="w-full bg-surface2 border border-border rounded-lg px-4 py-2.5 text-sm text-text focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
+              className="w-full bg-navyLight border border-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-gold/20" />
           </div>
@@ -128,7 +128,7 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
               placeholder="Ej. Desarrollador Junior"
               value={puestoActual}
               onChange={(e) => setPuestoActual(e.target.value)}
-              className="w-full bg-surface2 border border-border rounded-lg px-4 py-2.5 text-sm text-text focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
+              className="w-full bg-navyLight border border-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-gold/20" />
           </div>
@@ -150,7 +150,7 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
               placeholder="Ej. Desarrollador Lead"
               value={puestoMeta}
               onChange={(e) => setPuestoMeta(e.target.value)}
-              className="w-full bg-surface2 border border-border rounded-lg px-4 py-2.5 text-sm text-text focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
+              className="w-full bg-navyLight border border-border rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 shadow-inner"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-gold/20" />
           </div>
@@ -172,7 +172,7 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
           placeholder="Describe las metas de negocio de la empresa que se buscan apoyar con esta capacitación..."
           value={objetivoEmpresa}
           onChange={(e) => setObjetivoEmpresa(e.target.value)}
-          className="bg-surface2 border border-border rounded-lg px-4 py-3 text-sm text-text focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 resize-none shadow-inner leading-relaxed"
+          className="bg-navyLight border border-border rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-all duration-300 resize-none shadow-inner leading-relaxed"
         />
       </div>
 
@@ -195,8 +195,8 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
                 onClick={() => toggleGap(gap)}
                 className={`px-4 py-2 rounded-lg text-xs font-mono font-medium border transition-all duration-300 cursor-pointer flex items-center gap-2 ${
                   isSelected
-                    ? 'border-teal text-teal bg-teal/10 shadow-[0_0_10px_rgba(255,0,127,0.18)]'
-                    : 'border-border text-textMuted hover:border-border/80 hover:text-text hover:bg-surface2'
+                    ? 'border-teal text-teal bg-teal/10 shadow-[0_0_10px_rgba(34,211,184,0.18)]'
+                    : 'border-border text-steel hover:border-steel/80 hover:text-white hover:bg-navyLight'
                 }`}
               >
                 <span className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${isSelected ? 'bg-teal animate-pulse' : 'bg-textMuted/40'}`} />
@@ -212,10 +212,10 @@ export function FormularioPerfil({ onSubmit }: FormularioPerfilProps) {
         <button
           type="submit"
           disabled={!nombre || !empresa || !puestoActual || !puestoMeta || selectedGaps.length === 0}
-          className="px-6 py-3 bg-gold text-bg font-bold rounded-lg text-sm hover:bg-gold/90 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 shadow-[0_4px_14px_rgba(0,240,255,0.25)] hover:shadow-[0_4px_20px_rgba(0,240,255,0.4)] active:scale-95 cursor-pointer font-mono"
+          className="px-6 py-3 bg-gold text-navyDeep font-bold rounded-lg text-sm hover:bg-gold/90 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 shadow-[0_4px_14px_rgba(232,163,61,0.25)] hover:shadow-[0_4px_20px_rgba(232,163,61,0.4)] active:scale-95 cursor-pointer font-mono"
         >
           <span>SINTETIZAR PLAN CURATORIAL</span>
-          <ChevronRight className="w-4 h-4 text-bg stroke-[2.5px]" />
+          <ChevronRight className="w-4 h-4 text-navyDeep stroke-[2.5px]" />
         </button>
       </div>
     </form>

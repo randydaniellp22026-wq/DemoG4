@@ -58,10 +58,10 @@ export function Stepper({ steps, activeStep }: StepperProps) {
               <div
                 className={`w-9 h-9 rounded-lg flex items-center justify-center font-mono transition-all duration-500 relative border ${
                   isCompleted
-                    ? 'bg-gold/10 border-gold text-gold shadow-[0_0_10px_rgba(0,240,255,0.2)]'
+                    ? 'bg-gold/10 border-gold text-gold shadow-[0_0_10px_rgba(232,163,61,0.2)]'
                     : isActive
-                    ? 'bg-teal/15 border-teal text-teal shadow-[0_0_12px_rgba(255,0,127,0.35)]'
-                    : 'bg-surface2 border-border text-textMuted'
+                    ? 'bg-teal/15 border-teal text-teal shadow-[0_0_12px_rgba(34,211,184,0.35)]'
+                    : 'bg-navyLight border-border text-textMuted'
                 }`}
               >
                 {/* Micro tech node lights */}
@@ -82,7 +82,7 @@ export function Stepper({ steps, activeStep }: StepperProps) {
                 </span>
                 <span
                   className={`font-display text-sm tracking-wide transition-colors duration-300 ${
-                    isActive ? 'text-text font-bold glow-text-magenta' : isCompleted ? 'text-gold' : 'text-textMuted'
+                    isActive ? 'text-white font-bold glow-text-magenta' : isCompleted ? 'text-gold' : 'text-textMuted'
                   }`}
                 >
                   {label}

@@ -108,7 +108,7 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
       <div className="border-b border-border/50 pb-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 relative">
         <div className="flex items-center space-x-3">
           {/* Glowing AI Avatar Sphere */}
-          <div className="relative w-10 h-10 rounded-lg bg-teal/10 border border-teal flex items-center justify-center shadow-[0_0_12px_rgba(255,0,127,0.25)] shrink-0">
+          <div className="relative w-10 h-10 rounded-lg bg-teal/10 border border-teal flex items-center justify-center shadow-[0_0_12px_rgba(34,211,184,0.25)] shrink-0">
             <Brain className="w-5 h-5 text-teal animate-pulse" />
             <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 bg-green-500 rounded-full border border-bg shadow-[0_0_8px_#22c55e]" />
           </div>
@@ -140,7 +140,7 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
           <button
             type="button"
             onClick={onBack}
-            className="text-[10px] font-mono border border-border px-3 py-2 rounded-lg text-textMuted hover:border-gold hover:text-gold hover:shadow-[0_0_8px_rgba(0,240,255,0.15)] transition-all flex items-center gap-1.5 cursor-pointer"
+            className="text-[10px] font-mono border border-steel px-3 py-2 rounded-lg text-steel hover:border-gold hover:text-gold hover:shadow-[0_0_8px_rgba(232,163,61,0.15)] transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <ArrowLeft className="w-3 h-3" />
             VER PROGRAMA
@@ -178,8 +178,8 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
               <div
                 className={`rounded-xl px-4 py-3 text-xs leading-relaxed border relative shadow-inner ${
                   isUser
-                    ? 'bg-teal/10 border-teal/30 text-text font-sans rounded-tr-none'
-                    : 'bg-surface2 border-border/50 text-text font-sans rounded-tl-none'
+                    ? 'bg-teal/10 border-teal/30 text-white font-sans rounded-tr-none'
+                    : 'bg-navyLight border-border/50 text-white font-sans rounded-tl-none'
                 }`}
               >
                 {/* Tech corner tick inside bubble */}
@@ -198,7 +198,7 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
               <span>AI_COACH::PROCESSING</span>
             </div>
             
-            <div className="bg-surface2 border border-border/30 rounded-xl rounded-tl-none px-4 py-3.5 flex flex-col space-y-3 w-56 relative shadow-inner">
+            <div className="bg-navyLight border border-border/30 rounded-xl rounded-tl-none px-4 py-3.5 flex flex-col space-y-3 w-56 relative shadow-inner">
               <span className="absolute top-0 left-0 w-1.5 h-1.5 bg-border" />
               
               {/* Thinking Oscilloscope */}
@@ -232,7 +232,7 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
               <button
                 type="button"
                 onClick={() => handleSend(undefined, undefined, true)}
-                className="px-4 py-2 bg-gold text-bg font-bold font-mono text-[10px] tracking-wider rounded hover:bg-gold/90 transition-all cursor-pointer shadow-[0_2px_8px_rgba(0,240,255,0.25)]"
+                className="px-4 py-2 bg-gold text-navyDeep font-bold font-mono text-[10px] tracking-wider rounded hover:bg-gold/90 transition-all cursor-pointer shadow-[0_2px_8px_rgba(232,163,61,0.25)]"
               >
                 FORZAR RESPUESTA COGNITIVA (DEMO)
               </button>
@@ -255,7 +255,7 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
                 key={idx}
                 type="button"
                 onClick={() => handleSend(undefined, action.prompt)}
-                className="px-3 py-1.5 bg-surface2/60 border border-border/40 rounded-lg text-[10px] font-mono text-textMuted hover:border-gold hover:text-gold hover:bg-gold/5 transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
+                className="px-3 py-1.5 bg-navyLight/60 border border-border/40 rounded-lg text-[10px] font-mono text-steel hover:border-teal hover:text-teal hover:bg-teal/5 transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
               >
                 {action.label}
               </button>
@@ -275,15 +275,15 @@ export function AgenteCoaching({ perfil, programa, historialChat, onSendMessage,
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Formula una pregunta o consulta aquí..."
           disabled={loading}
-          className="flex-1 bg-surface2 border border-border rounded-lg pl-8 pr-4 py-3 text-xs text-text placeholder:text-textMuted/50 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors disabled:opacity-50 font-sans shadow-inner"
+          className="flex-1 bg-navyLight border border-border rounded-lg pl-8 pr-4 py-3 text-xs text-white placeholder:text-textMuted/50 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors disabled:opacity-50 font-sans shadow-inner"
         />
         <button
           type="submit"
           disabled={loading || !inputText.trim()}
-          className="px-4 py-3 bg-gold text-bg font-bold rounded-lg text-xs hover:bg-gold/90 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 shadow-[0_2px_10px_rgba(0,240,255,0.2)] font-mono cursor-pointer"
+          className="px-4 py-3 bg-gold text-navyDeep font-bold rounded-lg text-xs hover:bg-gold/90 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5 shadow-[0_2px_10px_rgba(232,163,61,0.2)] font-mono cursor-pointer"
         >
           <span>ENVIAR</span>
-          <Send className="w-3 h-3 text-bg" />
+          <Send className="w-3 h-3 text-navyDeep" />
         </button>
       </form>
     </div>
