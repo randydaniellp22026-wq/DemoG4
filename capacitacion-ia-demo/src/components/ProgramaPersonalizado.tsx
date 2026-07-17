@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react'
 import { Terminal, Brain, Clock, Sparkles, ArrowLeft, Activity, CheckCircle2, Zap, AlertTriangle } from 'lucide-react'
 
+interface SemanaDetalle {
+  semana_numero: number;
+  titulo: string;
+  resumen: string;
+  temas: string[];
+}
+
 interface Modulo {
   titulo: string;
   duracion: string;
   objetivo: string;
   por_que_personalizado: string;
+  habilidades_reforzadas?: string[];
+  semanas?: SemanaDetalle[];
 }
 
 interface ProgramData {
@@ -25,6 +34,48 @@ export function ProgramaPersonalizado({ perfil, onActivateCoaching, onBack }: Pr
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [program, setProgram] = useState<ProgramData | null>(null)
+  
+  // Weekly breakdown accordion state
+  const [expandedModules, setExpandedModules] = useState<Record<number, boolean>>({})
+
+  const toggleModuleExpand = (idx: number) => {
+    setExpandedModules(prev => ({
+      ...prev,
+      [idx]: !prev[idx]
+    }))
+  }
+
+  const getSemanas = (modulo: Modulo) => {
+    if (modulo.semanas && modulo.semanas.length > 0) {
+      return modulo.semanas;
+    }
+    const numSemanas = parseInt(modulo.duracion) || 2;
+    const autoSemanas: SemanaDetalle[] = [];
+    for (let i = 1; i <= numSemanas; i++) {
+      autoSemanas.push({
+        semana_numero: i,
+        titulo: `Profundización de contenidos (Fase ${i})`,
+        resumen: `Estudio práctico y aplicación de: ${modulo.objetivo}`,
+        temas: [
+          `Fundamentos esenciales del módulo`,
+          `Métricas de control y aplicación de campo`,
+          `Revisión operativa y evaluación final`
+        ]
+      });
+    }
+    return autoSemanas;
+  };
+
+  const getHabilidades = (modulo: Modulo) => {
+    if (modulo.habilidades_reforzadas && modulo.habilidades_reforzadas.length > 0) {
+      return modulo.habilidades_reforzadas;
+    }
+    return [
+      `Competencia en ${modulo.titulo.split(' ')[0] || 'materia'}`,
+      "Resolución de problemas",
+      "Eficiencia operativa"
+    ];
+  };
   
   // Real-time terminal log simulator
   const [terminalLogs, setTerminalLogs] = useState<string[]>([])
@@ -64,19 +115,76 @@ export function ProgramaPersonalizado({ perfil, onActivateCoaching, onBack }: Pr
             titulo: "Liderazgo de Equipos de Operaciones y Bodega",
             duracion: "3 semanas",
             objetivo: "Desarrollar habilidades para coordinar turnos, delegar tareas y resolver conflictos en el piso de operaciones.",
-            por_que_personalizado: "Se seleccionó para abordar tu gap en 'Liderazgo de equipo', fundamental en tu transición de Operario a Supervisor."
+            por_que_personalizado: "Se seleccionó para abordar tu gap en 'Liderazgo de equipo', fundamental en tu transición de Operario a Supervisor.",
+            habilidades_reforzadas: ["Gestión de equipos", "Delegación operativa", "Resolución de conflictos"],
+            semanas: [
+              {
+                semana_numero: 1,
+                titulo: "Transición al rol de liderazgo",
+                resumen: "Comprender la diferencia clave entre operar y supervisar un equipo operativo en el piso.",
+                temas: ["Mentalidad de supervisor", "Responsabilidad operativa", "Primeros pasos en delegación"]
+              },
+              {
+                semana_numero: 2,
+                titulo: "Gestión de turnos y delegación",
+                resumen: "Técnicas eficaces para distribuir el personal en los turnos de bodega y supervisar tareas.",
+                temas: ["Asignación de roles", "Feedback constructivo", "Seguimiento de cumplimiento"]
+              },
+              {
+                semana_numero: 3,
+                titulo: "Manejo de conflictos en planta",
+                resumen: "Afrontar y resolver diferencias de opinión y roces en bodega de forma asertiva.",
+                temas: ["Escucha activa", "Mediación objetiva", "Protocolos de resolución"]
+              }
+            ]
           },
           {
             titulo: "Comunicación Asertiva y Reporte Operativo",
             duracion: "2 semanas",
             objetivo: "Implementar técnicas de comunicación clara y asertiva para evitar malentendidos en bodega y coordinar con otras áreas.",
-            por_que_personalizado: "Diseñado para cerrar la brecha de 'Comunicación asertiva' y asegurar reportes limpios a gerencia."
+            por_que_personalizado: "Diseñado para cerrar la brecha de 'Comunicación asertiva' y asegurar reportes limpios a gerencia.",
+            habilidades_reforzadas: ["Comunicación asertiva", "Reporte corporativo", "Coordinación entre áreas"],
+            semanas: [
+              {
+                semana_numero: 1,
+                titulo: "Comunicación clara en bodega",
+                resumen: "Evitar malentendidos y ruidos en el traspaso de instrucciones durante el turno.",
+                temas: ["Lenguaje asertivo", "Instrucciones de trabajo claras", "Escucha empática"]
+              },
+              {
+                semana_numero: 2,
+                titulo: "Reportes gerenciales limpios",
+                resumen: "Cómo redactar reportes de novedades e incidentes para la gerencia de operaciones.",
+                temas: ["Estructura de minutas", "Indicadores de incidencias", "Herramientas de reporte interno"]
+              }
+            ]
           },
           {
             titulo: "Gestión del Objetivo Estratégico y Control de Tiempos",
             duracion: "3 semanas",
             objetivo: "Capacitar en la optimización del layout de bodega y distribución de personal para reducir tiempos de despacho en un 15%.",
-            por_que_personalizado: `Alineado directamente al objetivo de la empresa: "${perfil?.objetivoEmpresa || 'Reducir tiempos y mermas'}"`
+            por_que_personalizado: `Alineado directamente al objetivo de la empresa: "${perfil?.objetivoEmpresa || 'Reducir tiempos y mermas'}"`,
+            habilidades_reforzadas: ["Optimización de layouts", "Control de tiempos de despacho", "Reducción de errores de stock"],
+            semanas: [
+              {
+                semana_numero: 1,
+                titulo: "Diagnóstico de tiempos de despacho",
+                resumen: "Medir los cuellos de botella actuales en el despacho de pedidos.",
+                temas: ["Mapeo del flujo de pedidos", "Detección de tiempos muertos", "Uso de cronómetro de procesos"]
+              },
+              {
+                semana_numero: 2,
+                titulo: "Reorganización de layout operativo",
+                resumen: "Mejorar la distribución física de productos y personal en los turnos.",
+                temas: ["Clasificación ABC de inventario", "Rutas óptimas de picking", "Distribución ergonómica"]
+              },
+              {
+                semana_numero: 3,
+                titulo: "Indicadores de mejora (KPI)",
+                resumen: "Evaluar el impacto de las mejoras aplicadas comparándolas con el objetivo de reducción de 15%.",
+                temas: ["Cálculo del lead time", "Indicador de pedidos perfectos", "Presentación de resultados"]
+              }
+            ]
           }
         ],
         comparativa_generica: "Un curso estándar enseñaría administración de bodegas general. Este plan se enfoca en que tú dirijas el equipo de Rutas Andinas Logística liderando con asertividad.",
@@ -297,7 +405,7 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
               {program.modulos && program.modulos.map((modulo, idx) => (
                 <div 
                   key={idx} 
-                  className="relative group bg-surface2/40 hover:bg-surface2/70 p-4 border border-border/30 hover:border-gold/30 rounded-xl transition-all duration-300 space-y-2.5"
+                  className="relative group bg-surface2/40 hover:bg-surface2/60 p-4 border border-border/30 hover:border-gold/30 rounded-xl transition-all duration-300 space-y-3"
                 >
                   
                   {/* Timeline Dot (Electric Node) */}
@@ -306,11 +414,21 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
                   </div>
 
                   {/* Header Title and Duration */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-border/10 pb-1.5">
-                    <h4 className="text-sm font-bold font-display text-text group-hover:text-gold transition-colors">
-                      {idx + 1}. {modulo.titulo}
-                    </h4>
-                    <span className="text-teal font-mono text-[10px] font-bold whitespace-nowrap bg-teal/10 border border-teal/20 px-2 py-0.5 rounded flex items-center gap-1.5">
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 border-b border-border/10 pb-2">
+                    <div className="space-y-1.5">
+                      <h4 className="text-sm font-bold font-display text-text group-hover:text-gold transition-colors leading-tight">
+                        {idx + 1}. {modulo.titulo}
+                      </h4>
+                      {/* Reinforced Skills Badges */}
+                      <div className="flex flex-wrap gap-1.5 pt-0.5">
+                        {getHabilidades(modulo).map((skill, sIdx) => (
+                          <span key={sIdx} className="text-[9px] font-mono text-gold border border-gold/35 bg-gold/5 px-2 py-0.5 rounded-full flex items-center gap-1">
+                            🎯 {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <span className="text-teal font-mono text-[10px] font-bold whitespace-nowrap bg-teal/10 border border-teal/20 px-2.5 py-0.5 rounded flex items-center gap-1.5 self-start">
                       <Clock className="w-3 h-3 text-teal" />
                       {modulo.duracion}
                     </span>
@@ -329,6 +447,59 @@ He estructurado y personalizado el programa "${program.programa_nombre}" especia
                       </div>
                     </div>
                   </div>
+
+                  {/* Expandable Weekly breakdown trigger */}
+                  <div className="pt-2.5 border-t border-border/20 flex justify-between items-center text-[10px] font-mono">
+                    <span className="text-textMuted/60 uppercase text-[9px]">DIAGNÓSTICO CURRICULAR</span>
+                    <button
+                      type="button"
+                      onClick={() => toggleModuleExpand(idx)}
+                      className="text-teal hover:text-teal/80 transition-colors font-bold cursor-pointer hover:underline flex items-center gap-1"
+                    >
+                      {expandedModules[idx] ? '[- OCULTAR TEMARIO]' : '[+ VER DESGLOSE SEMANAL Y TEMAS]'}
+                    </button>
+                  </div>
+
+                  {/* Expanded Weekly Content Panel */}
+                  {expandedModules[idx] && (
+                    <div className="mt-3 bg-[#04060d]/70 border border-border/50 rounded-lg p-3.5 space-y-3.5 animate-fadeIn">
+                      <span className="text-[8px] font-mono text-teal/60 uppercase block tracking-wider">
+                        // MATRIX_CURRICULUM_LOG :: DEPLOYING_WEEKS
+                      </span>
+                      
+                      <div className="grid grid-cols-1 gap-3">
+                        {getSemanas(modulo).map((semana, semIdx) => (
+                          <div key={semIdx} className="space-y-1.5 border-b border-border/15 pb-2.5 last:border-b-0 last:pb-0">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[9px] font-mono font-bold text-teal bg-teal/10 px-1.5 py-0.5 rounded border border-teal/10">
+                                Semana {semana.semana_numero}
+                              </span>
+                              <span className="text-[11px] font-display font-bold text-text">
+                                {semana.titulo}
+                              </span>
+                            </div>
+                            
+                            <p className="text-[11px] text-textMuted pl-1 leading-relaxed">
+                              {semana.resumen}
+                            </p>
+                            
+                            {semana.temas && semana.temas.length > 0 && (
+                              <div className="pl-2.5 pt-0.5 space-y-1">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
+                                  {semana.temas.map((tema, tIdx) => (
+                                    <div key={tIdx} className="text-[10px] font-mono text-text/80 flex items-center gap-1.5">
+                                      <span className="w-1 h-1 bg-gold rounded-full shrink-0" />
+                                      <span>{tema}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

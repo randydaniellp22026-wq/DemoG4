@@ -34,7 +34,16 @@ El JSON debe contener la siguiente estructura exacta:
       "titulo": "Título del módulo",
       "duracion": "Duración estimada (ej: 2 semanas)",
       "objetivo": "Objetivo principal de aprendizaje",
-      "por_que_personalizado": "Explicación de por qué este módulo se diseñó a medida según el puesto meta y los gaps indicados"
+      "por_que_personalizado": "Explicación de por qué este módulo se diseñó a medida según el puesto meta y los gaps indicados",
+      "habilidades_reforzadas": ["Habilidad clave 1", "Habilidad clave 2"],
+      "semanas": [
+        {
+          "semana_numero": 1,
+          "titulo": "Título semanal descriptivo",
+          "resumen": "Resumen claro de lo que se aprenderá esta semana",
+          "temas": ["Tema específico 1", "Tema específico 2"]
+        }
+      ]
     }
   ],
   "comparativa_generica": "Una breve descripción de cómo este programa personalizado difiere de un curso genérico",
