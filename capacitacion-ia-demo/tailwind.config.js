@@ -6,16 +6,16 @@ export default {
   ],
   theme: {
     colors: {
-      bg: "#05070f",
-      surface: "#0c0f1d",
-      surface2: "#12172b",
-      border: "#1d264a",
-      text: "#f1f5f9",
-      textMuted: "#6b7c96",
-      gold: "#00f0ff",     // Cyber Cyan (Primary highlight)
-      goldDim: "#004b54",  // Cyber Cyan Dim
-      teal: "#ff007f",     // Cyber Magenta (Accent highlight)
-      tealDim: "#6b0033",  // Cyber Magenta Dim
+      navyDeep: "#0A1128",
+      navy: "#111B3D",
+      navyLight: "#1B2F5C",
+      white: "#F5F6FA",
+      textMuted: "#8C96B8",
+      gold: "#E8A33D",
+      steel: "#3E7CB1",
+      teal: "#22D3B8",
+      tealDim: "#12564C",
+      border: "#26305A",
     },
     fontFamily: {
       display: ["Space Grotesk", "sans-serif"],

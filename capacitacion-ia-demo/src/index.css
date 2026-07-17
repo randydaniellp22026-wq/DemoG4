@@ -3,12 +3,10 @@
 
 @layer base {
   body {
-    background-color: #05070f;
-    background-image: 
-      radial-gradient(circle at 50% 50%, rgba(12, 15, 29, 0.4) 0%, #05070f 100%),
-      linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-    background-size: 100% 100%, 40px 40px, 40px 40px;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(62,124,177,0.16), transparent 45%),
+      radial-gradient(circle at 85% 30%, rgba(34,211,184,0.08), transparent 40%),
+      linear-gradient(180deg, #0A1128 0%, #0D1330 40%, #0A0E22 100%);
     background-attachment: fixed;
     color: #f1f5f9;
     font-family: "Inter", sans-serif;
